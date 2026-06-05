@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas Stations Near Me</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" defer src="script.js"></script>
+</head>
+<body>
+    <h1>Gas Stations Near Me</h1>
+    <div id="backend-status" style="margin:10px 0;color:#444;font-size:13px;">Backend: not checked</div>
+
+
+    <div id="sidebar" class="sidebar" aria-live="polite">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Station Details</div>
+            <button id="sidebar-close" class="sidebar-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div id="sidebar-content" class="sidebar-content">Click a pin to see details.</div>
+    </div>
+
+    <div id="map"></div>
+
+
+    <!--
+      Google Maps JS API key:
+      - You must provide a key to the browser to load Maps.
+      - You cannot truly hide it in a public frontend.
+      - Restrict it in Google Cloud Console by HTTP referrer to your GitHub Pages domain.
+    -->
+    <script>
+        // For security, restrict the key to your domain in Google Cloud.
+        // Replace with your own key or inject it at build time.
+        window.__GOOGLE_MAPS_KEY = 'AIzaSyCF2EkKN9kFgA2UyA4BjEWd7_ydl_71bYs';
+        (function loadGoogleMaps(){
+            const key = window.__GOOGLE_MAPS_KEY;
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places,marker&loading=async`;
+            script.defer = true;
+            document.head.appendChild(script);
+        })();
+    </script>
+
+
+</body>
+</html>
+
