@@ -560,7 +560,7 @@ const googleDirectionsLinkHtml = (() => {
         setAllUnavailable('Station coordinates not available.');
     } else {
         if (gasStatusEl) gasStatusEl.textContent = `Loading gas prices…`;
-        const url = `${(window.RENDER_BACKEND_BASE_URL || 'http://127.0.0.1:5000')}/api/gas-prices?zip=${encodeURIComponent(zip || '')}&lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`;
+        const url = `${(window.RENDER_BACKEND_BASE_URL || 'http://74.220.49.0/24')}/api/gas-prices?zip=${encodeURIComponent(zip || '')}&lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`;
 
         fetch(url)
             .then(async r => {
@@ -680,7 +680,7 @@ async function checkBackendHealth() {
     const timeoutId = setTimeout(() => controller.abort(), 4000);
 
     try {
-        const res = await fetch((window.RENDER_BACKEND_BASE_URL || 'http://127.0.0.1:5000') + '/api/health', {
+        const res = await fetch((window.RENDER_BACKEND_BASE_URL || 'http://74.220.49.0/24') + '/api/health', {
 
             method: 'GET',
             signal: controller.signal,
