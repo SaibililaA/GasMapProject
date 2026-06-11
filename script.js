@@ -551,12 +551,8 @@ const googleDirectionsLinkHtml = (() => {
     // Use the station's coordinates (place.location) rather than ZIP.
     const lat = stationLat;
     const lng = stationLng;
-
-    if (isLikelyGitHubPages) {
-        // GitHub Pages is static hosting; the backend at http://127.0.0.1:5000 is not reachable.
-        setAllUnavailable('Gas prices are unavailable on GitHub Pages (requires local Flask backend).');
-    } else if (lat == null || lng == null) {
-
+    
+    if (lat == null || lng == null) {
         setAllUnavailable('Station coordinates not available.');
     } else {
         if (gasStatusEl) gasStatusEl.textContent = `Loading gas prices…`;
