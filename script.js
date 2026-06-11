@@ -527,17 +527,6 @@ const googleDirectionsLinkHtml = (() => {
     // Gas prices from local proxy
     const gasStatusEl = document.getElementById('gas-prices-status');
 
-    // GitHub Pages note: frontend is static and cannot reach http://127.0.0.1.
-    // If backend isn't reachable, show a clear message instead of failing silently.
-    const isLikelyGitHubPages = (() => {
-        try {
-            const host = window.location?.host || '';
-            return host.includes('github.io');
-        } catch (_) {
-            return false;
-        }
-    })();
-
     const setFuelValue = (fuelKey, val) => {
         const el = document.querySelector(`.gas-price-value[data-fuel="${fuelKey}"]`);
         if (el) el.textContent = val;
