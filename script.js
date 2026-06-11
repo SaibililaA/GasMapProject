@@ -560,7 +560,8 @@ const googleDirectionsLinkHtml = (() => {
         setAllUnavailable('Station coordinates not available.');
     } else {
         if (gasStatusEl) gasStatusEl.textContent = `Loading gas prices…`;
-        const url = `http://127.0.0.1:5000/api/gas-prices?zip=${encodeURIComponent(zip || '')}&lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`;
+        const url = `${(window.RENDER_BACKEND_BASE_URL || 'http://127.0.0.1:5000')}/api/gas-prices?zip=${encodeURIComponent(zip || '')}&lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`;
+
         fetch(url)
             .then(async r => {
                 const text = await r.text();
@@ -679,14 +680,15 @@ async function checkBackendHealth() {
     const timeoutId = setTimeout(() => controller.abort(), 4000);
 
     try {
-        const res = await fetch('http://127.0.0.1:5000/api/health', {
+        const res = await fetch((window.RENDER_BACKEND_BASE_URL || 'http://127.0.0.1:5000') + '/api/health', {
+
             method: 'GET',
             signal: controller.signal,
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         statusEl.textContent = 'Backend: connected';
     } catch (err) {
-        statusEl.textContent = 'Backend: not running (start Flask on http://127.0.0.1:5000)';
+        statusEl.textContent = `Backend: not running (expected ${(window.RENDER_BACKEND_BASE_URL || 'http://127.0.0.1:5000')}/api/health)`;
         console.warn('Health check failed:', err?.message || err);
     } finally {
         clearTimeout(timeoutId);
